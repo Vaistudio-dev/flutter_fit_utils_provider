@@ -14,6 +14,8 @@ and the Flutter guide for
 TODO: Put a short description of the package here that helps potential users
 know whether this package might be useful for them.
 
+![image](https://github.com/s0punk/flutter_fit_utils_provider/assets/59456672/1d9b0f2b-4a47-4729-8f9f-8c5dec63c206)
+
 ## Features
 
 TODO: List what your package can do. Maybe include images, gifs, or videos.

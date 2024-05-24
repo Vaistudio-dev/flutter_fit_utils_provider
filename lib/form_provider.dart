@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 /// Provider for a form.
 /// Supports functionnalities like creating a new object of updating an
 /// existing one.
-abstract class FormProvider extends ChangeNotifier {
+abstract class FitFormProvider extends ChangeNotifier {
   /// Returns [true] if the instance has been initialized.
   bool initialized = false;
 

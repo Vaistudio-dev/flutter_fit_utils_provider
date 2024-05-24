@@ -1,5 +1,4 @@
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A flutter package to easily manage providers. This package is part of the flutter_fit_utils environement.
 
 ![flutter_fit_utils drawio](https://github.com/s0punk/flutter_fit_utils_provider/assets/59456672/74b056f7-f85d-4635-891c-fd9feee99cfb)
 
@@ -23,6 +22,4 @@ const like = 'sample';
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Feel free to [give any feedback](https://github.com/s0punk/flutter_fit_utils_provider/issues) ! This package is also open to contributions.

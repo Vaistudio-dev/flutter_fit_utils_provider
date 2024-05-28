@@ -12,16 +12,25 @@ abstract class SingleDataProvider<T extends Modelable> extends FitProvider {
   final bool createIfDontExist;
 
   /// Factory function of [T].
-  final T Function()? factoryFunc;
+  final T Function() factoryFunc;
 
   /// User id of the data's owner.
   String userId = "";
 
   /// Data contained by the provider.
-  Modelable data = const InvalidObject();
+  Modelable _data = const InvalidObject();
+
+  /// Data contained by the provider.
+  T get data {
+    if (_data is! T || _data.invalid) {
+      return factoryFunc().copyWith(invalid: true) as T;
+    }
+
+    return _data as T;
+  }
 
   /// Creates a new [SingleDataProvider].
-  SingleDataProvider(this._service, {this.createIfDontExist = true, this.factoryFunc});
+  SingleDataProvider(this._service, this.factoryFunc, {this.createIfDontExist = true});
 
   @override
   Future<void> initialize({dynamic data, String userId = ""}) async {
@@ -33,22 +42,22 @@ abstract class SingleDataProvider<T extends Modelable> extends FitProvider {
 
     final allData = await _service.getAll(userId: userId);
     if (allData.isNotEmpty) {
-      data = allData.first;
+      _data = allData.first;
     }
-    else if (createIfDontExist && factoryFunc != null) {
-      T newData = factoryFunc!().copyWith(userId: userId) as T;
+    else if (createIfDontExist) {
+      T newData = factoryFunc().copyWith(userId: userId) as T;
       newData = newData.copyWith(id: await _service.create(newData)) as T;
 
-      data = newData;
+      _data = newData;
     }
     else {
-      data = const InvalidObject();
+      _data = const InvalidObject();
     }
 
     initialized  = true;
   }
 
-  /// Adds a new instance of [T], [newData], to the repository, and replaces [data].
+  /// Adds a new instance of [T], [newData], to the repository, and replaces [_data].
   /// If the creation is sucessful, will return [true] and the assigned id of the instance.
   /// If the creation is not successful, will return [false] and [null].
   /// 
@@ -59,38 +68,38 @@ abstract class SingleDataProvider<T extends Modelable> extends FitProvider {
     }
 
     newData = newData.copyWith(userId: userId) as T;
-    data = newData.copyWith(id: await _service.create(newData));
+    _data = newData.copyWith(id: await _service.create(newData));
 
     notifyListeners();
 
-    return (true, data.id);
+    return (true, _data.id);
   }
 
-  /// Updates [data] inside the repository.
+  /// Updates [_data] inside the repository.
   /// If the creation is sucessful, will return [true]. Otherwise, [false].
   /// 
-  /// Note: [userId] is automatically applied to [data].
+  /// Note: [userId] is automatically applied to [_data].
   Future<bool> update() async {
-    if (data is! T || !isInstanceValid(data as T)) {
+    if (_data is! T || !isInstanceValid(_data as T)) {
       return false;
     }
 
-    data = data.copyWith(userId: userId);
-    await _service.update(data as T);
+    _data = _data.copyWith(userId: userId);
+    await _service.update(_data as T);
 
     notifyListeners();
 
     return true;
   }
 
-  /// Deletes [data] from the repository.
+  /// Deletes [_data] from the repository.
   /// If the suppression is sucessful, returns [true]. Otherwise, [false].
   Future<bool> delete() async {
-    if (data is! T || data.invalid) {
+    if (_data is! T || _data.invalid) {
       return false;
     }
 
-    await _service.delete(data as T);
+    await _service.delete(_data as T);
     notifyListeners();
 
     return true;
@@ -104,7 +113,7 @@ abstract class SingleDataProvider<T extends Modelable> extends FitProvider {
   void destroy() {
     super.destroy();
 
-    data = const InvalidObject();
+    _data = const InvalidObject();
     userId = "";
 
     notifyListeners();

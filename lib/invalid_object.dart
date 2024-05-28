@@ -6,7 +6,7 @@ class InvalidObject extends Modelable {
   const InvalidObject() : super(invalid: true);
 
   @override
-  Modelable copyWith({String? id, String? userId}) {
+  Modelable copyWith({String? id, String? userId, bool? invalid}) {
     throw UnimplementedError();
   }
 

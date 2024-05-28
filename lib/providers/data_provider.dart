@@ -5,7 +5,7 @@ import 'package:flutter_fit_utils_provider/flutter_fit_utils_provider.dart';
 import 'package:flutter_fit_utils_provider/invalid_object.dart';
 
 /// Provider containing a single [Modelable] object.
-abstract class SingleDataProvider<T extends Modelable> extends FitProvider {
+abstract class DataProvider<T extends Modelable> extends FitProvider {
   final Service<T> _service;
 
   /// Will create [T] for the user if none is found.
@@ -30,7 +30,7 @@ abstract class SingleDataProvider<T extends Modelable> extends FitProvider {
   }
 
   /// Creates a new [SingleDataProvider].
-  SingleDataProvider(this._service, this.factoryFunc, {this.createIfDontExist = true});
+  DataProvider(this._service, this.factoryFunc, {this.createIfDontExist = true});
 
   @override
   Future<void> initialize({dynamic data, String userId = ""}) async {

@@ -1,15 +1,23 @@
-A flutter package to easily manage providers. This package is part of the flutter_fit_utils environement.
+A flutter package to easily create providers of modelable data.
+This package is part of the flutter_fit_utils environement. To know about other packages related to flutter_fit_utils, see the diagram below.
 
 ![flutter_fit_utils drawio](https://github.com/s0punk/flutter_fit_utils_provider/assets/59456672/74b056f7-f85d-4635-891c-fd9feee99cfb)
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+This package lets you use pre-built providers, or custom ones, for your models. These providers then use services to manage your data repositories.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- Go inside your pubspec.yaml file
+- Add this line under the dependencies:
+```
+flutter_fit_utils_provider: ^1.0.0
+```
+- Get dependencies
+```
+flutter pub get
+```
 
 ## Usage
 

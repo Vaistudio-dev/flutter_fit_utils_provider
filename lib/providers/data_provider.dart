@@ -11,7 +11,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   /// Will create [T] for the user if none is found.
   final bool createIfDontExist;
 
-  /// Factory function of [T].
+  /// Factory function to create an instance of [T].
   final T Function() factoryFunc;
 
   /// User id of the data's owner.
@@ -29,8 +29,13 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     return _data as T;
   }
 
+  set data(T data) {
+    _data = data;
+  }
+
   /// Creates a new [SingleDataProvider].
-  DataProvider(this._service, this.factoryFunc, {this.createIfDontExist = true});
+  DataProvider(this._service, this.factoryFunc,
+      {this.createIfDontExist = true});
 
   @override
   Future<void> initialize({dynamic data, String userId = ""}) async {
@@ -43,24 +48,22 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     final allData = await _service.getAll(userId: userId);
     if (allData.isNotEmpty) {
       _data = allData.first;
-    }
-    else if (createIfDontExist) {
+    } else if (createIfDontExist) {
       T newData = factoryFunc().copyWith(userId: userId) as T;
       newData = newData.copyWith(id: await _service.create(newData)) as T;
 
       _data = newData;
-    }
-    else {
+    } else {
       _data = const InvalidObject();
     }
 
-    initialized  = true;
+    initialized = true;
   }
 
   /// Adds a new instance of [T], [newData], to the repository, and replaces [_data].
   /// If the creation is sucessful, will return [true] and the assigned id of the instance.
   /// If the creation is not successful, will return [false] and [null].
-  /// 
+  ///
   /// Note: [userId] is automatically applied to [newData].
   Future<(bool, String?)> createNew(T newData) async {
     if (!isInstanceValid(newData)) {
@@ -77,7 +80,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
 
   /// Updates [_data] inside the repository.
   /// If the creation is sucessful, will return [true]. Otherwise, [false].
-  /// 
+  ///
   /// Note: [userId] is automatically applied to [_data].
   Future<bool> update() async {
     if (_data is! T || !isInstanceValid(_data as T)) {

@@ -24,7 +24,7 @@ flutter pub get
 Check out example/main.dart for the complete implementation.
 
 ### Creating a provider
-Create a class that extends DataProvider or ItemsProvider. Use DataProvider if you want to provide a single modelable. On the contrary, use ItemsProvider if yout want to provide a list of modelables.
+Create a class that extends DataProvider or ItemsProvider. Use DataProvider if you want to provide a single modelable. On the contrary, use ItemsProvider if yout want to provide a list of modelables. It's that easy !
 
 ```dart
 /// Provider for [User] data.
@@ -39,6 +39,8 @@ class UserProvider extends DataProvider<User> {
   }
 }
 ```
+
+If you need, you can override methods to implement your own logic.
 
 ```dart
 /// Provider for [User] data.

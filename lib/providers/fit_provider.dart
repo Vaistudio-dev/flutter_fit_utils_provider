@@ -3,10 +3,10 @@ import 'package:rxdart/rxdart.dart';
 
 /// Basic data provider.
 /// Can managage the initialization status of a provider.
-/// 
+///
 /// The [initializationStream] lets listeners know as soon
 /// as the [initialize] function is done.
-abstract class BasicProvider extends ChangeNotifier {
+abstract class FitProvider extends ChangeNotifier {
   final _initializationSubject = BehaviorSubject<bool>();
 
   /// Initialization stream.
@@ -14,6 +14,7 @@ abstract class BasicProvider extends ChangeNotifier {
   Stream<bool> get initializationStream => _initializationSubject.stream;
 
   bool _initialized = false;
+
   /// Returns [true] if the provider has been initialized.
   bool get initialized => _initialized;
   set initialized(bool value) {

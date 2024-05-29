@@ -1,3 +1,7 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+- Added FitProvider
+- Added FitFormProvider
+- Added pre-built DataProvider
+- Added pre-built ItemsProvider
+- Updated README

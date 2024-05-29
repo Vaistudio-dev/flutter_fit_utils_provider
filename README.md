@@ -1,41 +1,92 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+A flutter package to easily create providers of modelable data.
+This package is part of the flutter_fit_utils environement. To know about other packages related to flutter_fit_utils, see the diagram below.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-![image](https://github.com/s0punk/flutter_fit_utils_provider/assets/59456672/1d9b0f2b-4a47-4729-8f9f-8c5dec63c206)
+![flutter_fit_utils drawio](https://github.com/s0punk/flutter_fit_utils_provider/assets/59456672/74b056f7-f85d-4635-891c-fd9feee99cfb)
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+This package lets you use pre-built providers, or custom ones, for your models. These providers then use services to manage your data repositories.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- Go inside your pubspec.yaml file
+- Add this line under the dependencies:
+```
+flutter_fit_utils_provider: ^1.0.0
+```
+- Get dependencies
+```
+flutter pub get
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Check out example/main.dart for the complete implementation.
+
+### Creating a provider
+Create a class that extends DataProvider or ItemsProvider. Use DataProvider if you want to provide a single modelable. On the contrary, use ItemsProvider if yout want to provide a list of modelables. It's that easy !
 
 ```dart
-const like = 'sample';
+/// Provider for [User] data.
+class UserProvider extends DataProvider<User> {
+  /// Creates a new [UserProvider].
+  UserProvider(super.service, super.factoryFunc);
+
+  @override
+  bool isInstanceValid(User instance) {
+    /// Implement your logic here...
+    return instance.name != "Bob";
+  }
+}
+```
+
+If you need, you can override methods to implement your own logic.
+
+```dart
+/// Provider for [User] data.
+class UserProvider extends DataProvider<User> {
+  /// Creates a new [UserProvider].
+  UserProvider(super.service, super.factoryFunc);
+
+  @override
+  Future<void> initialize({dynamic data, String userId = ""}) async {
+    /// Your own logic here.
+  }
+
+  @override
+  bool isInstanceValid(User instance) {
+    /// Implement your logic here...
+    return instance.name != "Bob";
+  }
+}
+```
+
+You can always create a custom provider by inheriting FitProvider or FitFormProvider.
+
+### Waiting for the initialization of your provider
+FitProviders have an initialization stream that you can listen to. This way, you can update your UI when your provider is ready.
+
+```dart
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<bool>(
+      stream: context.read<UserProvider>().initializationStream,
+      builder: (context, snapshot) {
+        if (!context.watch<UserProvider>().initialized) {
+          return const CircularProgressIndicator();
+        }
+
+        // Show your UI here.
+        return const SizedBox.shrink();
+      },
+    );
+  }
+}
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Feel free to [give any feedback](https://github.com/s0punk/flutter_fit_utils_provider/issues) ! This package is also open to contributions.

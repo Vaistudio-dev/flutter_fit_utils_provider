@@ -1,8 +1,20 @@
 name: flutter_fit_utils_provider
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
-publish_to: none
+description: "A flutter package to easily create providers of modelable data. This package is part of the flutter_fit_utils environement."
+version: 1.0.0
+homepage: https://pub.dev/packages/flutter_fit_utils_provider
+repository: https://github.com/s0punk/flutter_fit_utils_provider
+issue_tracker: https://github.com/s0punk/flutter_fit_utils_provider/issues
+
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
+
+topics:
+  - provider
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
@@ -11,9 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_fit_utils:
-    git:
-      url: https://github.com/s0punk/flutter_fit_utils
+  flutter_fit_utils: ^2.1.0
   provider: ^6.1.2
   rxdart: ^0.27.7
 

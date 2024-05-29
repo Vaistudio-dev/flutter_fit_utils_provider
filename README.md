@@ -64,7 +64,7 @@ class UserProvider extends DataProvider<User> {
 You can always create a custom provider by inheriting FitProvider or FitFormProvider.
 
 ### Waiting for the initialization of your provider
-FitProviders have a initialization stream that you can listen. This way, you can update your UI when your provider is ready.
+FitProviders have an initialization stream that you can listen to. This way, you can update your UI when your provider is ready.
 
 ```dart
 class MyApp extends StatelessWidget {

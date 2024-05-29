@@ -21,12 +21,45 @@ flutter pub get
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Check out example/main.dart for the complete implementation.
+
+### Creating a provider
+Create a class that extends DataProvider or ItemsProvider. Use DataProvider if you want to provide a single modelable. On the contrary, use ItemsProvider if yout want to provide a list of modelables.
 
 ```dart
-const like = 'sample';
+/// Provider for [User] data.
+class UserProvider extends DataProvider<User> {
+  /// Creates a new [UserProvider].
+  UserProvider(super.service, super.factoryFunc);
+
+  @override
+  bool isInstanceValid(User instance) {
+    /// Implement your logic here...
+    return instance.name != "Bob";
+  }
+}
 ```
+
+```dart
+/// Provider for [User] data.
+class UserProvider extends DataProvider<User> {
+  /// Creates a new [UserProvider].
+  UserProvider(super.service, super.factoryFunc);
+
+  @override
+  Future<void> initialize({dynamic data, String userId = ""}) async {
+    /// Your own logic here.
+  }
+
+  @override
+  bool isInstanceValid(User instance) {
+    /// Implement your logic here...
+    return instance.name != "Bob";
+  }
+}
+```
+
+You can always create a custom provider by inheriting FitProvider or FitFormProvider.
 
 ## Additional information
 

@@ -1,8 +1,29 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_fit_utils/flutter_fit_utils.dart';
 import 'package:flutter_fit_utils_provider/flutter_fit_utils_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserProvider>(
+            create: (_) => UserProvider(
+                FirestoreService<User>("MyFirestoreCollection", User.fromModel),
+                () => const User())),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
 }
 
 /// Provider for [User] data.

@@ -61,6 +61,30 @@ class UserProvider extends DataProvider<User> {
 
 You can always create a custom provider by inheriting FitProvider or FitFormProvider.
 
+### Waiting for the initialization of your provider
+FitProviders have a initialization stream that you can listen. This way, you can update your UI when your provider is ready.
+
+```dart
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<bool>(
+      stream: context.read<UserProvider>().initializationStream,
+      builder: (context, snapshot) {
+        if (!context.watch<UserProvider>().initialized) {
+          return const CircularProgressIndicator();
+        }
+
+        // Show your UI here.
+        return const SizedBox.shrink();
+      },
+    );
+  }
+}
+```
+
 ## Additional information
 
 Feel free to [give any feedback](https://github.com/s0punk/flutter_fit_utils_provider/issues) ! This package is also open to contributions.

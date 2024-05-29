@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fit_utils/flutter_fit_utils.dart';
 import 'package:flutter_fit_utils_provider/flutter_fit_utils_provider.dart';
@@ -22,7 +23,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return StreamBuilder<bool>(
+      stream: context.read<UserProvider>().initializationStream,
+      builder: (context, snapshot) {
+        if (!context.watch<UserProvider>().initialized) {
+          return const CircularProgressIndicator();
+        }
+
+        // Show your UI here.
+        return const SizedBox.shrink();
+      },
+    );
   }
 }
 

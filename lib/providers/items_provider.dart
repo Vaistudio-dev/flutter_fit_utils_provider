@@ -6,6 +6,9 @@ import '../flutter_fit_utils_provider.dart';
 abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   final Service<T> _service;
 
+  /// Returns the service of the provider.
+  Service<T> getService() => _service;
+
   /// Factory function to create an instance of [T].
   final T Function() factoryFunc;
 

@@ -8,6 +8,9 @@ import 'package:flutter_fit_utils_provider/invalid_object.dart';
 abstract class DataProvider<T extends Modelable> extends FitProvider {
   final Service<T> _service;
 
+  /// Returns the service of the provider.
+  Service<T> getService() => _service;
+
   /// Will create [T] for the user if none is found.
   final bool createIfDontExist;
 

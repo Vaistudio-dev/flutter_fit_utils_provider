@@ -9,3 +9,5 @@
 ## 1.0.1
 
 - Added service initialization inside the initialization of DataProvider and ItemsProvider
+- Added a getter for _service inside DataProvider
+- Added a getter for _service inside ItemsProvider

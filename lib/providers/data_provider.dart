@@ -46,6 +46,8 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       return;
     }
 
+    await _service.repository.initialize();
+
     this.userId = userId;
 
     final allData = await _service.getAll(userId: userId);

@@ -31,6 +31,8 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
       return;
     }
 
+    await _service.repository.initialize();
+
     this.userId = userId;
 
     _data = await _service.getAll(userId: userId);

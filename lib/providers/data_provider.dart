@@ -14,6 +14,14 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   /// Will create [T] for the user if none is found.
   final bool createIfDontExist;
 
+  /// If set to [True], when creating a new instance, it will automatically be
+  /// assigned [userId].
+  final bool assignUserIdOnCreate;
+
+  /// If set to [True], when updating a new instance, it will automatically be
+  /// assigned [userId].
+  final bool assignUserIdOnUpdate;
+
   /// Factory function to create an instance of [T].
   final T Function() factoryFunc;
 
@@ -37,8 +45,13 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   }
 
   /// Creates a new [SingleDataProvider].
-  DataProvider(this._service, this.factoryFunc,
-      {this.createIfDontExist = true});
+  DataProvider(
+    this._service,
+    this.factoryFunc, {
+    this.createIfDontExist = true,
+    this.assignUserIdOnCreate = true,
+    this.assignUserIdOnUpdate = true,
+  });
 
   @override
   Future<void> initialize({dynamic data, String userId = ""}) async {
@@ -75,7 +88,10 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       return (false, null);
     }
 
-    newData = newData.copyWith(userId: userId) as T;
+    if (assignUserIdOnCreate) {
+      newData = newData.copyWith(userId: userId) as T;
+    }
+
     _data = newData.copyWith(id: await _service.create(newData));
 
     notifyListeners();
@@ -92,7 +108,10 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       return false;
     }
 
-    _data = _data.copyWith(userId: userId);
+    if (assignUserIdOnUpdate) {
+      _data = _data.copyWith(userId: userId);
+    }
+
     await _service.update(_data as T);
 
     notifyListeners();

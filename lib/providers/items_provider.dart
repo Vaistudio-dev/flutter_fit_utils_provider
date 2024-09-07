@@ -6,6 +6,14 @@ import '../flutter_fit_utils_provider.dart';
 abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   final Service<T> _service;
 
+  /// If set to [True], when creating a new instance, it will automatically be
+  /// assigned [userId].
+  final bool assignUserIdOnCreate;
+
+  /// If set to [True], when updating a new instance, it will automatically be
+  /// assigned [userId].
+  final bool assignUserIdOnUpdate;
+
   /// Returns the service of the provider.
   Service<T> getService() => _service;
 
@@ -23,7 +31,12 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   }
 
   /// Creates a new [ItemsProvider].
-  ItemsProvider(this._service, this.factoryFunc);
+  ItemsProvider(
+    this._service,
+    this.factoryFunc, {
+    this.assignUserIdOnCreate = true,
+    this.assignUserIdOnUpdate = true,
+  });
 
   @override
   Future<void> initialize({dynamic data, String userId = ""}) async {
@@ -50,7 +63,10 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
       return (false, null);
     }
 
-    newData = newData.copyWith(userId: userId) as T;
+    if (assignUserIdOnCreate) {
+      newData = newData.copyWith(userId: userId) as T;
+    }
+
     _data.add(
         newData = newData.copyWith(id: await _service.create(newData)) as T);
 
@@ -69,7 +85,10 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
       return false;
     }
 
-    existingData = existingData.copyWith(userId: userId) as T;
+    if (assignUserIdOnUpdate) {
+      existingData = existingData.copyWith(userId: userId) as T;
+    }
+
     _data.replace(existingData);
 
     await _service.update(existingData);

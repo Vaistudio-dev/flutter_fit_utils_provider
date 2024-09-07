@@ -14,3 +14,7 @@
 ## 1.0.2
 
 - Added service initialization inside the initialization of DataProvider and ItemsProvider
+
+## 1.0.3
+
+- Added option to not automatically assign the userId to an instance in DataProvider and ItemsProvider.

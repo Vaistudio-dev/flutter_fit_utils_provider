@@ -6,10 +6,8 @@ import 'package:flutter_fit_utils_provider/invalid_object.dart';
 
 /// Provider containing a single [Modelable] object.
 abstract class DataProvider<T extends Modelable> extends FitProvider {
-  final Service<T> _service;
-
-  /// Returns the service of the provider.
-  Service<T> getService() => _service;
+  /// Service of the provider.
+  late final Service<T> service;
 
   /// Will create [T] for the user if none is found.
   final bool createIfDontExist;
@@ -46,12 +44,16 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
 
   /// Creates a new [SingleDataProvider].
   DataProvider(
-    this._service,
+    Service<T>? service,
     this.factoryFunc, {
     this.createIfDontExist = true,
     this.assignUserIdOnCreate = true,
     this.assignUserIdOnUpdate = true,
-  });
+  }) {
+    if (service != null) {
+      this.service = service;
+    }
+  }
 
   @override
   Future<void> initialize({dynamic data, String userId = ""}) async {
@@ -59,16 +61,16 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       return;
     }
 
-    await _service.repository.initialize();
+    await service.repository.initialize();
 
     this.userId = userId;
 
-    final allData = await _service.getAll(userId: userId);
+    final allData = await service.getAll(userId: userId);
     if (allData.isNotEmpty) {
       _data = allData.first;
     } else if (createIfDontExist) {
       T newData = factoryFunc().copyWith(userId: userId) as T;
-      newData = newData.copyWith(id: await _service.create(newData)) as T;
+      newData = newData.copyWith(id: await service.create(newData)) as T;
 
       _data = newData;
     } else {
@@ -92,7 +94,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       newData = newData.copyWith(userId: userId) as T;
     }
 
-    _data = newData.copyWith(id: await _service.create(newData));
+    _data = newData.copyWith(id: await service.create(newData));
 
     notifyListeners();
 
@@ -112,7 +114,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       _data = _data.copyWith(userId: userId);
     }
 
-    await _service.update(_data as T);
+    await service.update(_data as T);
 
     notifyListeners();
 
@@ -126,7 +128,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       return false;
     }
 
-    await _service.delete(_data as T);
+    await service.delete(_data as T);
     notifyListeners();
 
     return true;

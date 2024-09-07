@@ -18,3 +18,8 @@
 ## 1.0.3
 
 - Added option to not automatically assign the userId to an instance in DataProvider and ItemsProvider.
+
+## 2.0.0
+
+- Made service public and late initializable in DataProvider and ItemsProvider.
+- Removed getService() in DataProvider and ItemsProvider.

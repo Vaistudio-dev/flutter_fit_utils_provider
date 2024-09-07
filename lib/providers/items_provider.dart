@@ -4,7 +4,8 @@ import '../flutter_fit_utils_provider.dart';
 
 /// Provider that contains a list of [Modelable] objects.
 abstract class ItemsProvider<T extends Modelable> extends FitProvider {
-  final Service<T> _service;
+  /// Service of the provider.
+  late final Service<T> service;
 
   /// If set to [True], when creating a new instance, it will automatically be
   /// assigned [userId].
@@ -13,9 +14,6 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   /// If set to [True], when updating a new instance, it will automatically be
   /// assigned [userId].
   final bool assignUserIdOnUpdate;
-
-  /// Returns the service of the provider.
-  Service<T> getService() => _service;
 
   /// Factory function to create an instance of [T].
   final T Function() factoryFunc;
@@ -32,11 +30,15 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
 
   /// Creates a new [ItemsProvider].
   ItemsProvider(
-    this._service,
+    Service<T>? service,
     this.factoryFunc, {
     this.assignUserIdOnCreate = true,
     this.assignUserIdOnUpdate = true,
-  });
+  }) {
+    if (service != null) {
+      this.service = service;
+    }
+  }
 
   @override
   Future<void> initialize({dynamic data, String userId = ""}) async {
@@ -44,11 +46,11 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
       return;
     }
 
-    await _service.repository.initialize();
+    await service.repository.initialize();
 
     this.userId = userId;
 
-    _data = await _service.getAll(userId: userId);
+    _data = await service.getAll(userId: userId);
 
     initialized = true;
   }
@@ -68,7 +70,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
     }
 
     _data.add(
-        newData = newData.copyWith(id: await _service.create(newData)) as T);
+        newData = newData.copyWith(id: await service.create(newData)) as T);
 
     notifyListeners();
 
@@ -91,7 +93,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
 
     _data.replace(existingData);
 
-    await _service.update(existingData);
+    await service.update(existingData);
 
     notifyListeners();
 
@@ -107,7 +109,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
     }
 
     _data.remove(toDelete);
-    await _service.delete(_data as T);
+    await service.delete(_data as T);
 
     notifyListeners();
 

@@ -26,13 +26,12 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   ItemsProvider(this._service, this.factoryFunc);
 
   @override
-  Future<void> initialize({dynamic data, String userId = ""}) async {
+  Future<void> initialize({dynamic data, String? userId = ""}) async {
     if (initialized) {
       return;
     }
 
-    this.userId = userId;
-
+    this.userId = userId ?? "";
     _data = await _service.getAll(userId: userId);
 
     initialized = true;

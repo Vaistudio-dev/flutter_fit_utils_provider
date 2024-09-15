@@ -41,12 +41,12 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       {this.createIfDontExist = true});
 
   @override
-  Future<void> initialize({dynamic data, String userId = ""}) async {
+  Future<void> initialize({dynamic data, String? userId = ""}) async {
     if (initialized) {
       return;
     }
 
-    this.userId = userId;
+    this.userId = userId ?? "";
 
     final allData = await _service.getAll(userId: userId);
     if (allData.isNotEmpty) {

@@ -10,3 +10,7 @@
 
 - Added a getter for _service inside DataProvider
 - Added a getter for _service inside ItemsProvider
+
+## 1.1.0
+
+- Made userId parameter nullable in DataProvider.initialize() and ItemsProvider.initialize()

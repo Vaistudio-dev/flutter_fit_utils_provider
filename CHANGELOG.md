@@ -23,3 +23,6 @@
 
 - Made service public and late initializable in DataProvider and ItemsProvider.
 - Removed getService() in DataProvider and ItemsProvider.
+
+## 2.1.0
+- Made userId parameter nullable in DataProvider.initialize() and ItemsProvider.initialize()

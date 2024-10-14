@@ -109,7 +109,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
     }
 
     _data.remove(toDelete);
-    await service.delete(_data as T);
+    await service.delete(toDelete);
 
     notifyListeners();
 

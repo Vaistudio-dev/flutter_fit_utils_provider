@@ -26,3 +26,6 @@
 
 ## 2.1.0
 - Made userId parameter nullable in DataProvider.initialize() and ItemsProvider.initialize()
+
+## 2.1.1
+- Fixed delete method of ItemsProvider

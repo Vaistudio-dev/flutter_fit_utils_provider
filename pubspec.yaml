@@ -1,6 +1,6 @@
 name: flutter_fit_utils_provider
 description: "A flutter package to easily create providers of modelable data. This package is part of the flutter_fit_utils environement."
-version: 2.1.0
+version: 2.1.1
 homepage: https://pub.dev/packages/flutter_fit_utils_provider
 repository: https://github.com/s0punk/flutter_fit_utils_provider
 issue_tracker: https://github.com/s0punk/flutter_fit_utils_provider/issues

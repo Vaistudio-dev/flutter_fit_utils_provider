@@ -29,3 +29,7 @@
 
 ## 2.1.1
 - Fixed delete method of ItemsProvider
+
+## 2.1.2
+
+- Updated dependencies

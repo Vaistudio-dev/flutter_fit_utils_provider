@@ -33,3 +33,7 @@
 ## 2.1.2
 
 - Updated dependencies
+
+## 2.1.3
+
+- Fixed ItemsProvider's update method.

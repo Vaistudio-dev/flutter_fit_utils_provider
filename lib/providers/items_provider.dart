@@ -82,7 +82,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   ///
   /// Note: [userId] is automatically applied to [existingData].
   Future<bool> update(T existingData) async {
-    if (_data.any((element) => element.id == existingData.id) ||
+    if (!_data.any((element) => element.id == existingData.id) ||
         !isInstanceValid(existingData)) {
       return false;
     }

@@ -5,7 +5,7 @@ import '../flutter_fit_utils_provider.dart';
 /// Provider that contains a list of [Modelable] objects.
 abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   /// Service of the provider.
-  late final Service<T> service;
+  late Service<T> service;
 
   /// If set to [True], when creating a new instance, it will automatically be
   /// assigned [userId].

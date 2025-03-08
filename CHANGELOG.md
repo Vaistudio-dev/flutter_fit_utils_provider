@@ -37,3 +37,7 @@
 ## 2.1.3
 
 - Fixed ItemsProvider's update method.
+
+## 2.1.4
+
+- Made FitProvider's service non-final.

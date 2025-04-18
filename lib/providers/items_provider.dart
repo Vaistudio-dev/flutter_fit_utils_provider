@@ -1,3 +1,4 @@
+import 'package:flutter_fit_events/flutter_fit_events.dart';
 import 'package:flutter_fit_utils/flutter_fit_utils.dart';
 
 import '../flutter_fit_utils_provider.dart';
@@ -53,6 +54,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
     _data = await service.getAll(userId: userId);
 
     initialized = true;
+    AppEventsDispatcher().publish(ProviderInitializedEvent(service.repositoryId));
   }
 
   /// Adds a new instance of [T], [newData], to the repository.
@@ -69,10 +71,10 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
       newData = newData.copyWith(userId: userId) as T;
     }
 
-    _data.add(
-        newData = newData.copyWith(id: await service.create(newData)) as T);
+    _data.add(newData = newData.copyWith(id: await service.create(newData)) as T);
 
     notifyListeners();
+    AppEventsDispatcher().publish(DataCreatedEvent(service.repositoryId, newData));
 
     return (true, newData.id);
   }
@@ -82,8 +84,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   ///
   /// Note: [userId] is automatically applied to [existingData].
   Future<bool> update(T existingData) async {
-    if (!_data.any((element) => element.id == existingData.id) ||
-        !isInstanceValid(existingData)) {
+    if (!_data.any((element) => element.id == existingData.id) || !isInstanceValid(existingData)) {
       return false;
     }
 
@@ -96,6 +97,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
     await service.update(existingData);
 
     notifyListeners();
+    AppEventsDispatcher().publish(DataUpdatedEvent(service.repositoryId, existingData));
 
     return true;
   }
@@ -112,6 +114,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
     await service.delete(toDelete);
 
     notifyListeners();
+    AppEventsDispatcher().publish(DataDeletedEvent(service.repositoryId, toDelete));
 
     return true;
   }
@@ -128,5 +131,6 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
     _data = [];
 
     notifyListeners();
+    AppEventsDispatcher().publish(ProviderDestroyedEvent(service.repositoryId));
   }
 }

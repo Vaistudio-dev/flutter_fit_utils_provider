@@ -44,3 +44,7 @@
 
 ## 2.1.5
 .
+
+## 2.2.0
+
+- Implemented events for DataProvider and ItemsProvider with flutter_fit_events

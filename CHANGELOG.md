@@ -41,3 +41,6 @@
 ## 2.1.4
 
 - Made FitProvider's service non-final.
+
+## 2.1.5
+.

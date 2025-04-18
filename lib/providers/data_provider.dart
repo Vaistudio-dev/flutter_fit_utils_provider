@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_fit_events/flutter_fit_events.dart';
 import 'package:flutter_fit_utils/flutter_fit_utils.dart';
 import 'package:flutter_fit_utils_provider/flutter_fit_utils_provider.dart';
 import 'package:flutter_fit_utils_provider/invalid_object.dart';
@@ -71,13 +72,15 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     } else if (createIfDontExist) {
       T newData = factoryFunc().copyWith(userId: userId) as T;
       newData = newData.copyWith(id: await service.create(newData)) as T;
-
       _data = newData;
+
+      AppEventsDispatcher().publish(DataCreatedEvent(service.repositoryId, _data));
     } else {
       _data = const InvalidObject();
     }
 
     initialized = true;
+    AppEventsDispatcher().publish(ProviderInitializedEvent(service.repositoryId));
   }
 
   /// Adds a new instance of [T], [newData], to the repository, and replaces [_data].
@@ -97,6 +100,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     _data = newData.copyWith(id: await service.create(newData));
 
     notifyListeners();
+    AppEventsDispatcher().publish(DataCreatedEvent(service.repositoryId, _data));
 
     return (true, _data.id);
   }
@@ -117,6 +121,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     await service.update(_data as T);
 
     notifyListeners();
+    AppEventsDispatcher().publish(DataUpdatedEvent(service.repositoryId, _data));
 
     return true;
   }
@@ -129,7 +134,9 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     }
 
     await service.delete(_data as T);
+
     notifyListeners();
+    AppEventsDispatcher().publish(DataDeletedEvent(service.repositoryId, _data));
 
     return true;
   }
@@ -146,5 +153,6 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     userId = "";
 
     notifyListeners();
+    AppEventsDispatcher().publish(ProviderDestroyedEvent(service.repositoryId));
   }
 }

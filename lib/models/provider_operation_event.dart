@@ -3,10 +3,14 @@ import 'package:flutter_fit_utils/flutter_fit_utils.dart';
 
 /// Base operation event for providers.
 sealed class ProviderOperationEvent extends AppEvent {
+  /// Id of the affected data repository.
   final String repositoryId;
+
+  /// Data related to the event.
   final Modelable data;
 
-  const ProviderOperationEvent(this.repositoryId, this.data);
+  /// Base operation event for providers.
+  const ProviderOperationEvent(this.repositoryId, this.data, {super.description});
 }
 
 /// Event that indicates that a [Modelable] data has been created and pushed
@@ -14,7 +18,7 @@ sealed class ProviderOperationEvent extends AppEvent {
 class DataCreatedEvent extends ProviderOperationEvent {
   /// Event that indicates that a [Modelable] data has been created and pushed
   /// inside a [Repository].
-  const DataCreatedEvent(super.repositoryId, super.data);
+  DataCreatedEvent(super.repositoryId, super.data) : super(description: "Created ${data.id} inside $repositoryId");
 }
 
 /// Event that indicates that a [Modelable] data has been modified and pushed
@@ -22,11 +26,11 @@ class DataCreatedEvent extends ProviderOperationEvent {
 class DataUpdatedEvent extends ProviderOperationEvent {
   /// Event that indicates that a [Modelable] data has been modified and pushed
   /// inside a [Repository].
-  const DataUpdatedEvent(super.repositoryId, super.data);
+  DataUpdatedEvent(super.repositoryId, super.data) : super(description: "Updated ${data.id} inside $repositoryId");
 }
 
 /// Event that indicates that a [Modelable] data has been deleted from a [Repository].
 class DataDeletedEvent extends ProviderOperationEvent {
   /// Event that indicates that a [Modelable] data has been deleted from a [Repository].
-  const DataDeletedEvent(super.repositoryId, super.data);
+  DataDeletedEvent(super.repositoryId, super.data) : super(description: "Deleted ${data.id} inside $repositoryId");
 }

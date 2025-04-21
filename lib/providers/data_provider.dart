@@ -90,6 +90,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   /// Note: [userId] is automatically applied to [newData].
   Future<(bool, String?)> createNew(T newData) async {
     if (!isInstanceValid(newData)) {
+      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.create, service.repositoryId, newData));
       return (false, null);
     }
 
@@ -111,6 +112,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   /// Note: [userId] is automatically applied to [_data].
   Future<bool> update() async {
     if (_data is! T || !isInstanceValid(_data as T)) {
+      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.update, service.repositoryId, _data));
       return false;
     }
 
@@ -130,6 +132,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   /// If the suppression is sucessful, returns [true]. Otherwise, [false].
   Future<bool> delete() async {
     if (_data is! T || _data.invalid) {
+      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.delete, service.repositoryId, _data));
       return false;
     }
 

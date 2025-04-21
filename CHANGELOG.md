@@ -52,3 +52,7 @@
 ## 2.2.1
 
 - Added defaults description to provider events.
+
+## 2.2.2
+
+- Added Operation failed event when a create, update or delete operation has failed inside a provider.

@@ -64,6 +64,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   /// Note: [userId] is automatically applied to [newData].
   Future<(bool, String?)> createNew(T newData) async {
     if (!isInstanceValid(newData)) {
+      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.create, service.repositoryId, newData));
       return (false, null);
     }
 
@@ -85,6 +86,7 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   /// Note: [userId] is automatically applied to [existingData].
   Future<bool> update(T existingData) async {
     if (!_data.any((element) => element.id == existingData.id) || !isInstanceValid(existingData)) {
+      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.update, service.repositoryId, existingData));
       return false;
     }
 
@@ -105,8 +107,8 @@ abstract class ItemsProvider<T extends Modelable> extends FitProvider {
   /// Deletes [toDelete] from the repository.
   /// If the suppression is sucessful, returns [true]. Otherwise, [false].
   Future<bool> delete(T toDelete) async {
-    if (toDelete.invalid ||
-        !_data.any((element) => element.id == toDelete.id)) {
+    if (toDelete.invalid || !_data.any((element) => element.id == toDelete.id)) {
+      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.delete, service.repositoryId, toDelete));
       return false;
     }
 

@@ -34,3 +34,22 @@ class DataDeletedEvent extends ProviderOperationEvent {
   /// Event that indicates that a [Modelable] data has been deleted from a [Repository].
   DataDeletedEvent(super.repositoryId, super.data) : super(description: "Deleted ${data.id} inside $repositoryId");
 }
+
+/// Event that indicates that a create, update or delete operation has failed.
+class OperationFailedEvent extends ProviderOperationEvent {
+  /// Failed operation type.
+  final OperationType type;
+
+  /// Event that indicates that a create, update or delete operation has failed.
+  OperationFailedEvent(this.type, super.repositoryId, super.data) : super(description: "Failed to ${type.name} ${data.id} inside $repositoryId");
+}
+
+/// CRUD operations.
+enum OperationType {
+  /// Create a record.
+  create,
+  /// Update a record.
+  update,
+  /// Delete a record.
+  delete
+}

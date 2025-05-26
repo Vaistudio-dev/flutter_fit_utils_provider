@@ -56,3 +56,6 @@
 ## 2.2.2
 
 - Added Operation failed event when a create, update or delete operation has failed inside a provider.
+
+## 2.2.3
+- Updated flutter_fit_utils dependency.

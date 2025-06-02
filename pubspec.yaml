@@ -1,6 +1,6 @@
 name: flutter_fit_utils_provider
 description: "A flutter package to easily create providers of modelable data. This package is part of the flutter_fit_utils environement."
-version: 2.2.3
+version: 2.2.4
 homepage: https://pub.dev/packages/flutter_fit_utils_provider
 repository: https://github.com/Vaistudio-dev/flutter_fit_utils_provider
 issue_tracker: https://github.com/Vaistudio-dev/flutter_fit_utils_provider/issues
@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_fit_events: ^1.0.2
-  flutter_fit_utils: ^2.4.5
+  flutter_fit_utils: ^3.0.0
   provider: ^6.1.2
   rxdart: ^0.28.0
 

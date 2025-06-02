@@ -59,3 +59,6 @@
 
 ## 2.2.3
 - Updated flutter_fit_utils dependency.
+
+## 2.2.4
+- Updated dependencies.

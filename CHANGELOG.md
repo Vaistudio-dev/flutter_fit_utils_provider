@@ -65,3 +65,6 @@
 
 ## 2.3.0
 - Refactored DataProvider so that data is nullable.
+
+## 2.3.1
+- Added better null handling inside DataProvider.

@@ -23,11 +23,18 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   /// Factory function to create an instance of [T].
   final T Function() factoryFunc;
 
-  /// User id of the data's owner.
+  /// Id of the data's owner.
   String userId = "";
 
   /// Data contained by the provider.
-  T? data;
+  T? _data;
+
+  /// Returns true if the data is null.
+  bool get noData => _data == null;
+
+  /// Data containes by the provider.
+  /// Do not use if [noData] is true.
+  T get data => _data!;
 
   /// Creates a new [SingleDataProvider].
   DataProvider(
@@ -69,7 +76,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     AppEventsDispatcher().publish(ProviderInitializedEvent(service.repositoryId));
   }
 
-  /// Adds a new instance of [T], [newData], to the repository, and replaces [data].
+  /// Adds a new instance of [T], [newData], to the repository, and replaces [_data].
   /// If the creation is successful, will return [true] and the assigned id of the instance.
   /// If the creation is not successful, will return [false] and [null].
   /// Note: [userId] is automatically applied to [newData].
@@ -83,51 +90,51 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
       newData = newData.copyWith(userId: userId) as T;
     }
 
-    data = newData.copyWith(id: await service.create(newData)) as T;
+    _data = newData.copyWith(id: await service.create(newData)) as T;
 
     notifyListeners();
-    AppEventsDispatcher().publish(DataCreatedEvent(service.repositoryId, data!));
+    AppEventsDispatcher().publish(DataCreatedEvent(service.repositoryId, _data!));
 
-    return (true, data!.id);
+    return (true, _data!.id);
   }
 
-  /// Updates [data] inside the repository.
+  /// Updates [_data] inside the repository.
   /// If the creation is sucessful, will return [true]. Otherwise, [false].
-  /// Note: [userId] is automatically applied to [data].
+  /// Note: [userId] is automatically applied to [_data].
   Future<bool> update() async {
-    if (data == null || !isInstanceValid(data as T)) {
+    if (_data == null || !isInstanceValid(_data as T)) {
       return false;
     }
 
-    if (!isInstanceValid(data!)) {
-      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.update, service.repositoryId, data!));
+    if (!isInstanceValid(_data!)) {
+      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.update, service.repositoryId, _data!));
       return false;
     }
 
     if (assignUserIdOnUpdate) {
-      data = data!.copyWith(userId: userId) as T;
+      _data = _data!.copyWith(userId: userId) as T;
     }
 
-    await service.update(data!);
+    await service.update(_data!);
 
     notifyListeners();
-    AppEventsDispatcher().publish(DataUpdatedEvent(service.repositoryId, data!));
+    AppEventsDispatcher().publish(DataUpdatedEvent(service.repositoryId, _data!));
 
     return true;
   }
 
-  /// Deletes [data] from the repository.
+  /// Deletes [_data] from the repository.
   /// If the suppression is sucessful, returns [true]. Otherwise, [false].
   Future<bool> delete() async {
-    if (data == null) {
-      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.delete, service.repositoryId, data!));
+    if (_data == null) {
+      AppEventsDispatcher().publish(OperationFailedEvent(OperationType.delete, service.repositoryId, _data!));
       return false;
     }
 
-    await service.delete(data!);
+    await service.delete(_data!);
 
     notifyListeners();
-    AppEventsDispatcher().publish(DataDeletedEvent(service.repositoryId, data!));
+    AppEventsDispatcher().publish(DataDeletedEvent(service.repositoryId, _data!));
 
     return true;
   }
@@ -140,7 +147,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   void destroy() {
     super.destroy();
 
-    data = null;
+    _data = null;
     userId = "";
 
     notifyListeners();

@@ -36,6 +36,9 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   /// Do not use if [noData] is true.
   T get data => _data!;
 
+  /// Data contained by the provider.
+  set data(T? newData) => _data = newData;
+
   /// Creates a new [SingleDataProvider].
   DataProvider(
     Service<T>? service,

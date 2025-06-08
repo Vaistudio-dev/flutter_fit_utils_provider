@@ -68,3 +68,6 @@
 
 ## 2.3.1
 - Added better null handling inside DataProvider.
+
+## 2.3.2
+- Fixed a bug where data inside DataProvider could not be set.

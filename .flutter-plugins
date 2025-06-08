@@ -1,15 +1,9 @@
 # This is a generated file; do not edit or check into version control.
-cloud_firestore=/Users/vais/.pub-cache/hosted/pub.dev/cloud_firestore-5.6.8/
-cloud_firestore_web=/Users/vais/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.4.8/
-firebase_core=/Users/vais/.pub-cache/hosted/pub.dev/firebase_core-3.13.1/
-firebase_core_web=/Users/vais/.pub-cache/hosted/pub.dev/firebase_core_web-2.23.0/
-firebase_remote_config=/Users/vais/.pub-cache/hosted/pub.dev/firebase_remote_config-5.4.4/
-firebase_remote_config_web=/Users/vais/.pub-cache/hosted/pub.dev/firebase_remote_config_web-1.8.4/
-path_provider_linux=/Users/vais/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
-path_provider_windows=/Users/vais/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/
-shared_preferences=/Users/vais/.pub-cache/hosted/pub.dev/shared_preferences-2.5.3/
-shared_preferences_android=/Users/vais/.pub-cache/hosted/pub.dev/shared_preferences_android-2.4.10/
-shared_preferences_foundation=/Users/vais/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.4/
-shared_preferences_linux=/Users/vais/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/
-shared_preferences_web=/Users/vais/.pub-cache/hosted/pub.dev/shared_preferences_web-2.4.3/
-shared_preferences_windows=/Users/vais/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.4.1/
+path_provider_linux=/Users/simon-oliviervaillancourt/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
+path_provider_windows=/Users/simon-oliviervaillancourt/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1/
+shared_preferences=/Users/simon-oliviervaillancourt/.pub-cache/hosted/pub.dev/shared_preferences-2.5.2/
+shared_preferences_android=/Users/simon-oliviervaillancourt/.pub-cache/hosted/pub.dev/shared_preferences_android-2.4.8/
+shared_preferences_foundation=/Users/simon-oliviervaillancourt/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.4/
+shared_preferences_linux=/Users/simon-oliviervaillancourt/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/
+shared_preferences_web=/Users/simon-oliviervaillancourt/.pub-cache/hosted/pub.dev/shared_preferences_web-2.4.3/
+shared_preferences_windows=/Users/simon-oliviervaillancourt/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.4.1/

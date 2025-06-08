@@ -62,3 +62,6 @@
 
 ## 2.2.4
 - Updated dependencies.
+
+## 2.3.0
+- Refactored DataProvider so that data is nullable.

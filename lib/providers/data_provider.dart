@@ -53,7 +53,7 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
   }
 
   @override
-  Future<void> initialize({dynamic data, String? userId = ""}) async {
+  Future<void> initialize({String? userId = ""}) async {
     if (initialized) {
       return;
     }

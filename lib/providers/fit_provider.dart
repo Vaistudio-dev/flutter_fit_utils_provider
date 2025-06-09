@@ -25,7 +25,7 @@ abstract class FitProvider extends ChangeNotifier {
   /// Initializes the provider.
   /// Should set [initialized] to [true] at the very end of the
   /// implementation.
-  Future<void> initialize({required dynamic data});
+  Future<void> initialize();
 
   /// Destroys the data and marks the instance as uninitialized.
   @mustCallSuper

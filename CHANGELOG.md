@@ -71,3 +71,6 @@
 
 ## 2.3.2
 - Fixed a bug where data inside DataProvider could not be set.
+
+## 2.4.0
+- Removed data parameters from initialize functions.

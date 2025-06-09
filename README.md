@@ -10,7 +10,7 @@ This package lets you use pre-built providers, or custom ones, for your models. 
 - Go inside your pubspec.yaml file
 - Add this line under the dependencies:
 ```
-flutter_fit_utils_provider: ^2.4.0
+flutter_fit_utils_provider: ^2.4.1
 ```
 - Get dependencies
 ```

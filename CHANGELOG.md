@@ -74,3 +74,6 @@
 
 ## 2.4.0
 - Removed data parameters from initialize functions.
+
+## 2.4.1
+- Fixed a bug where data would not be deleted properly inside DataProvider.

@@ -139,6 +139,8 @@ abstract class DataProvider<T extends Modelable> extends FitProvider {
     notifyListeners();
     AppEventsDispatcher().publish(DataDeletedEvent(service.repositoryId, _data!));
 
+    _data = null;
+
     return true;
   }
 
